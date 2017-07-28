@@ -1,13 +1,89 @@
 <!doctype html>
 <html>
   <head>
-     <title>My First Vue App </title>
+     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+     <title>Elektronik Sertifika Programı</title>
   </head>
   <body>
-     <div id="app">
-        <p>{{message}}
-          <input type="button" class="btn btn-primary" value="Hello   bootstrap">
-     </div>
-  <script src="./bundle.js"></script>
+    <!--Main Container-->
+    <div class="container" id="app">
+      <!--Header-->
+      <div class="header">
+        <header>
+          <h1>Elektronik Sertifika Programı</h1>
+        </header>
+      </div>
+      <!--End Header-->
+      <!--Main Content-->
+      <div class="main-content">
+      <!--Left Container-->
+      <div class="lf-content">
+        <ul>
+          <li><a class="btn btn-default">Kurs</a></li>
+          <li><a class="btn btn-default">Devamsızlık</a></li>
+        </ul>
+      </div>
+      <!--End Left Container-->
+      <!--Raight Container-->
+      <div class="rd-content">
+          <div class="box">
+              <table class="table table-striped">
+    <thead>
+      <tr>
+        <td colspan="8" style="text-align: right"><a class="btn btn-default">+</a></td>
+      </tr>
+      <tr>
+        <th>Adı</th>
+        <th>Durumu</th>
+        <th>Eğitmen</th>
+        <th>Kontenjan</th>
+        <th>Baş. Tarihi</th>
+        <th>Bitiş Tarihi</th>
+        <th>Saat</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>İş Güvenliği</td>
+        <td>Devam ediyor</td>
+        <td>Ali ÖZDEMİR</td>
+        <td>30</td>
+        <td>01.08.2017</td>
+        <td>15.08.2017</td>
+        <td>25</td>
+        <td><a class="btn btn-default">Edit</a></td>
+      </tr>
+      <tr>
+        <td>Temel Seviye C#</td>
+        <td>Bitti</td>
+        <td>Cantekin Çelikhası</td>
+        <td>20</td>
+        <td>01.07.2017</td>
+        <td>15.07.2017</td>
+        <td>25</td>
+        <td><a class="btn btn-default">Edit</a></td>
+      </tr>
+      
+    </tbody>
+  </table>
+          </div>
+      </div>
+      <!--End Right Container-->
+      </div>
+      <!--End Main Content-->
+      <!--Footer-->
+      <div class="footer">
+        <footer>
+          <p>Bilişm Teknolojileri Bölümü</p>
+        </footer>
+      </div>
+      <!--End Footer-->
+
+    </div>
+    <!--End Main Container-->
+
+     
+        <script src="./bundle.js"></script>
   </body>
 </html>

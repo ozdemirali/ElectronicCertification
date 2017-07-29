@@ -17,7 +17,7 @@
       <!--Main Content-->
       <div class="main-content">
       <!--Left Container-->
-      <div class="lf-content">
+      <div class="lf-content comman comman-height">
         <ul>
           <li><a class="btn btn-default">Kurs</a></li>
           <li><a class="btn btn-default">Devamsızlık</a></li>
@@ -25,49 +25,154 @@
       </div>
       <!--End Left Container-->
       <!--Raight Container-->
-      <div class="rd-content">
+      <div class="rd-content comman comman-height">
+        <!--box-->
           <div class="box">
               <table class="table table-striped">
-    <thead>
-      <tr>
-        <td colspan="8" style="text-align: right"><a class="btn btn-default">+</a></td>
-      </tr>
-      <tr>
-        <th>Adı</th>
-        <th>Durumu</th>
-        <th>Eğitmen</th>
-        <th>Kontenjan</th>
-        <th>Baş. Tarihi</th>
-        <th>Bitiş Tarihi</th>
-        <th>Saat</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>İş Güvenliği</td>
-        <td>Devam ediyor</td>
-        <td>Ali ÖZDEMİR</td>
-        <td>30</td>
-        <td>01.08.2017</td>
-        <td>15.08.2017</td>
-        <td>25</td>
-        <td><a class="btn btn-default">Edit</a></td>
-      </tr>
-      <tr>
-        <td>Temel Seviye C#</td>
-        <td>Bitti</td>
-        <td>Cantekin Çelikhası</td>
-        <td>20</td>
-        <td>01.07.2017</td>
-        <td>15.07.2017</td>
-        <td>25</td>
-        <td><a class="btn btn-default">Edit</a></td>
-      </tr>
-      
-    </tbody>
-  </table>
+                <thead>
+                  <tr>
+                      <td colspan="8" style="text-align: right"><a class="btn btn-default">+</a></td>
+                  </tr>
+                  <tr>
+                      <th>Adı</th>
+                      <th>Durumu</th>
+                      <th>Eğitmen</th>
+                      <th>Kontenjan</th>
+                      <th>Baş. Tarihi</th>
+                      <th>Bitiş Tarihi</th>
+                      <th>Saat</th>
+                      <th></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>İş Güvenliği</td>
+                    <td>Devam ediyor</td>
+                    <td>Ali ÖZDEMİR</td>
+                    <td>30</td>
+                    <td>01.08.2017</td>
+                    <td>15.08.2017</td>
+                    <td>25</td>
+                    <td><a class="btn btn-default">Edit</a></td>
+                  </tr>
+                  <tr>
+                    <td>Temel Seviye C#</td>
+                    <td>Bitti</td>
+                    <td>Cantekin Çelikhası</td>
+                    <td>20</td>
+                    <td>01.07.2017</td>
+                    <td>15.07.2017</td>
+                    <td>25</td>
+                    <td><a class="btn btn-default">Edit</a></td>
+                  </tr>
+                </tbody>
+               </table>
           </div>
+          <!--End box-->
+
+            <!--Course Add and Edit Screen-->
+      <div class="course comman" style="display: none">
+            <!--Course add-->
+        <div>
+          <table class="table">
+               <thead>
+                 <th>Kurs Ekleme</th>
+                 <th style="text-align: right"><a class="btn btn-default">Kapat</a></th>
+               </thead>
+               <tbody>
+                 <tr>
+                   <th>Adı</th>
+                   <td><input type="text"  class="form-control"></td>
+                 </tr>
+                 <tr>
+                   <th>Eğitmeni</th>
+                   <td>
+                     <select class="form-control" id="sel1">
+                        <option>Ali Özdemir</option>
+                        <option>Cantekin Çelikhası</option>
+                      </select>
+                   </td>
+                 </tr>
+                 <tr>
+                   <th>Kurs Başlama Tarihi</th>
+                   <td><input type="text" class="form-control"></td>
+                 </tr>
+                 <tr>
+                   <th>Kurs Bitiş Tarihi</th>
+                   <td><input type="text" class="form-control"></td>
+                 </tr>
+                 <tr>
+                   <th>Devamsızlık Sınırı</th>
+                   <td><input type="text" class="form-control"></td>
+                 </tr>
+                <tr>
+                  <td colspan="2">
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <td ><a class="btn btn-default">Kurs Bitir</a></td>
+                            <td><a class="btn btn-default">Devamsızlık Gir</a></td>
+                            <td ><a class="btn btn-default">Sınav Gir</a></td>
+                            <td ><a class="btn btn-default">Belgelendir</a></td>
+                            <td ><a class="btn btn-default">Belge Bas</a></td>
+                          </tr>
+                         
+                        </tbody>
+                      </table>
+
+                  </td>
+                </tr>
+                
+               </tbody>
+             </table>
+        </div>
+        <!--End Course add-->
+        <hr>
+        <!--Student add-->
+        <div>
+          <table class="table">
+            <thead>
+              <tr>
+                <th colspan="3">Öğrenci Listesi</th>
+                <th>
+                  <a class="btn btn-default">+</a>
+                </th>
+              </tr>
+              <tr>
+                <th>T.C. Kimlik</th>
+                <th>Adı</th>
+                <th>Soyadı</th>
+                <th>Sınıfı</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>12564698523</td>
+                <td>Can</td>
+                <td>Demir</td>
+                <td>TL 12 V</td>
+              </tr>
+               <tr>
+                <td>12564698523</td>
+                <td>Can</td>
+                <td>Demir</td>
+                <td>TL 12 V</td>
+              </tr>
+               <tr>
+                <td>12564698523</td>
+                <td>Can</td>
+                <td>Demir</td>
+                <td>TL 12 V</td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+        <!--End Student add-->
+             
+      </div>
+      <!--End Course Add and Edit Screea -->
+
       </div>
       <!--End Right Container-->
       </div>
@@ -80,6 +185,7 @@
       </div>
       <!--End Footer-->
 
+    
     </div>
     <!--End Main Container-->
 

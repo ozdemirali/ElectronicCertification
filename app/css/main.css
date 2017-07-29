@@ -7,6 +7,15 @@ body{
     color:#000;
     background-color: #fff; 
 }
+
+.comman{
+    border: 2px #ddd solid;
+    border-radius: 3px;
+}
+
+.comman-height{
+    min-height: 800px;
+}
 .container{
     border-radius: 6px;
     background-color: #EEE;
@@ -23,8 +32,8 @@ header{
 .lf-content{
     float:left;
     width:20%;
-    border: 2px #ddd solid;
-    border-radius: 3px;
+    /*border: 2px #ddd solid;
+    border-radius: 3px;*/
 }
 
 .lf-content ul{
@@ -43,13 +52,26 @@ header{
 .rd-content{
     width: 80%;
     float: right;
-    border: 2px #ddd solid;
-    border-radius: 3px;  
+    /*border: 2px #ddd solid;
+    border-radius: 3px;  */
+    position: relative;
 }
 
 .rd-content a{
     padding-top: 0;
     padding-bottom: 0;
+}
+
+.course{
+    position: absolute;
+    left: 50%;
+    top: 40%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+}
+
+.course table tr th{
+    vertical-align: middle;
 }
 .box{
     padding: 2px;
@@ -59,4 +81,6 @@ header{
     text-align: center;
     padding-top: 4px;
 }
+
+
 

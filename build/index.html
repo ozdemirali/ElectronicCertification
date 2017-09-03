@@ -31,7 +31,7 @@
               <table class="table table-striped">
                 <thead>
                   <tr>
-                      <td colspan="9" style="text-align: right"><a class="btn btn-default"  v-on:click="showHideAddKursForm">+</a>
+                      <td colspan="9" style="text-align: right"><a class="btn btn-default"  v-on:click="showHide('add')">+</a>
                       </td>
                   </tr>
                   <tr>
@@ -56,21 +56,22 @@
                       <td>{{item.startDate}}</td>
                       <td>{{item.endDate}}</td>
                       <td>{{item.hour}}</td>
-                      <td><a class="btn btn-default">Edit</a></td>
+                      <td><a class="btn btn-default" v-on:click="showHide('edit',index)">Edit</a></td>
                   </tr>
                 </tbody>
                </table>
           </div>
           <!--End box-->
-
+      
+          
             <!--Course Add and Edit Screen-->
-      <div class="course comman" v-show="showHide" >
+      <div class="course comman" v-show="addShowHide" >
             <!--Course add-->
         <div>
           <table class="table">
                <thead>
                  <th>Kurs Ekleme</th>
-                 <th style="text-align: right"><a class="btn btn-default" v-on:click="showHideAddKursForm">Kapat</a></th>
+                 <th style="text-align: right"><a class="btn btn-default" v-on:click="showHide('add')">Kapat</a></th>
                </thead>
                <tbody>
                  <tr>
@@ -155,8 +156,52 @@
              
       </div>
       <!--End Course Add and Edit Screea -->
+         <!--Edit Kurs  -->
+          <div class="course comman" v-show="editShowHide">
+            <div>
+                <table class="table">
+                     <thead>
+                       <th>Kurs Düzeltme</th>
+                       <th style="text-align: right"><a class="btn btn-default" v-on:click="showHide('edit')">Kapat</a></th>
+                     </thead>
+                     <tbody>
+                       <tr>
+                         <th>Adı</th>
+                         <td><input type="text"  class="form-control" v-model="editData.name"></td>
+                       </tr>
+                       <tr>
+                         <th>Eğitmeni</th>
+                         <td>
+                           <select class="form-control" v-model="editData.educator" id="sel1">
+                              <option v-for="itemqq in educator" v-bind:value="itemqq">{{itemqq}}</option>
+                            </select>
+                            
+                         </td>
+                       </tr>
+                       <tr>
+                         <th>Kurs Başlama Tarihi</th>
+                         <td><input type="text" v-model="editData.startDate" class="form-control"></td>
+                       </tr>
+                       <tr>
+                         <th>Kurs Bitiş Tarihi</th>
+                         <td><input type="text" v-model="editData.endDate" class="form-control"></td>
+                       </tr>
+                       <tr>
+                         <th>Devamsızlık Sınırı</th>
+                         <td><input type="text" v-model="editData.nonattendance" class="form-control"></td>
+                       </tr>
+                       <tr>
+                         <td colspan="2" style="text-align: right"><a class="btn btn-default"  v-on:click="showHide('update')">Kaydet</a>
+                       </tr>
+                               
+                      </tbody>
+                 </table>
+              </div>
 
-      </div>
+          </div> 
+         <!-- End Edit Kurs -->
+      
+    </div>
       <!--End Right Container-->
       </div>
       <!--End Main Content-->

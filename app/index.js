@@ -1,17 +1,21 @@
 require('bootstrap/dist/css/bootstrap.min.css');
-require('./css/main.css'); 
+require('./css/main.css');
 import Vue from 'vue';
+
+// let deneme={};
 
 
 new Vue({
     el:'#app',
     data:{
         message:"Hello Vue",
-       
-       
-        showHide:false,
+        addShowHide:false,
+        editShowHide:false,
+        educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
+        editData:{},
+        selected:[],
         kursData:[
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Cantekin Çelikhası",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
             {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
             {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
             {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
@@ -27,9 +31,29 @@ new Vue({
 
     },
     methods:{
-        showHideAddKursForm:function(){
-            this.showHide=!this.showHide;
-            this.styleObject.cursor='not-allowed';
-        }
+        showHide:function(item,index){
+            switch(item){
+                case "add":
+                    this.addShowHide=!this.addShowHide;
+                    // this.styleObject.cursor='not-allowed';
+                    // console.log(item);
+                    break;
+                case "edit":
+                    this.editShowHide=!this.editShowHide;
+                    if(this.editShowHide)  
+                    this.editData=this.kursData[index];
+
+                    console.log(this.editData);
+                    console.log(this.kursData[index].educator)
+                    break;
+                case "update":
+                    this.editShowHide=!this.editShowHide;
+                    console.log("update");
+                    console.log( this.editData);    
+                default:
+            }
+
+        },
+        
     }
 });

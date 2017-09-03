@@ -526,7 +526,47 @@ __webpack_require__(11);
 new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el:'#app',
     data:{
-        message:"Hello Vue"
+        message:"Hello Vue",
+        addShowHide:false,
+        editShowHide:false,
+        kursData:[
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
+        ],
+        studentList:[
+            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
+            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
+            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
+            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
+            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
+        ],
+
+    },
+    methods:{
+        showHide:function(item){
+            switch(item){
+                case "add":
+                    this.addShowHide=!this.showHide;
+                    this.styleObject.cursor='not-allowed';
+                    console.log(item);
+                    break;
+                case "edit":
+                    this.editShowHide=true;
+                    console.log(item);
+                    break;
+                default:
+            }
+          
+        },
+        edit:function(item){
+            //alert(item);
+           this.editShowHide=true; 
+           alert(this.kursData[0]);
+           console.log(this.kursData[0].name);
+        }
     }
 });
 
@@ -734,7 +774,7 @@ exports = module.exports = __webpack_require__(0)(undefined);
 
 
 // module
-exports.push([module.i, "body{\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    font-family:\"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.4; \r\n    color:#000;\r\n    background-color: #fff; \r\n}\r\n.container{\r\n    border-radius: 6px;\r\n    background-color: #EEE;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\nheader{\r\n    text-align: center;\r\n}\r\n\r\n.main-content{\r\n    padding-bottom: 20px;\r\n}\r\n.lf-content{\r\n    float:left;\r\n    width:20%;\r\n    border: 2px #ddd solid;\r\n    border-radius: 3px;\r\n}\r\n\r\n.lf-content ul{\r\n    padding: 2px;\r\n}\r\n.lf-content ul li{\r\n    list-style-type: none;\r\n}\r\n\r\n.lf-content ul li a{\r\n    display: block;\r\n    text-align: left;\r\n    color: #000;\r\n    background-color: #eee;\r\n} \r\n.rd-content{\r\n    width: 80%;\r\n    float: right;\r\n    border: 2px #ddd solid;\r\n    border-radius: 3px;  \r\n}\r\n\r\n.rd-content a{\r\n    padding-top: 0;\r\n    padding-bottom: 0;\r\n}\r\n.box{\r\n    padding: 2px;\r\n}\r\n.footer{\r\n    clear: both;\r\n    text-align: center;\r\n    padding-top: 4px;\r\n}\r\n\r\n", ""]);
+exports.push([module.i, "body{\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    font-family:\"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.4; \r\n    color:#000;\r\n    background-color: #fff; \r\n}\r\n\r\n.comman{\r\n    border: 2px #ddd solid;\r\n    border-radius: 3px;\r\n}\r\n\r\n.comman-height{\r\n    min-height: 800px;\r\n}\r\n.container{\r\n    border-radius: 6px;\r\n    background-color: #EEE;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\nheader{\r\n    text-align: center;\r\n}\r\n\r\n.main-content{\r\n    padding-bottom: 20px;\r\n}\r\n.lf-content{\r\n    float:left;\r\n    width:20%;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;*/\r\n}\r\n\r\n.lf-content ul{\r\n    padding: 2px;\r\n}\r\n.lf-content ul li{\r\n    list-style-type: none;\r\n}\r\n\r\n.lf-content ul li a{\r\n    display: block;\r\n    text-align: left;\r\n    color: #000;\r\n    background-color: #eee;\r\n} \r\n.rd-content{\r\n    width: 80%;\r\n    float: right;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;  */\r\n    position: relative;\r\n}\r\n\r\n.rd-content a{\r\n    padding-top: 0;\r\n    padding-bottom: 0;\r\n}\r\n\r\n.course{\r\n    position: absolute;\r\n    left: 50%;\r\n    top: 40%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: #fff;\r\n}\r\n\r\n.course table tr th{\r\n    vertical-align: middle;\r\n}\r\n.box{\r\n    padding: 2px;\r\n}\r\n.footer{\r\n    clear: both;\r\n    text-align: center;\r\n    padding-top: 4px;\r\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 

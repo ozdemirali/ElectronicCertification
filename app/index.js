@@ -1,6 +1,7 @@
 require('bootstrap/dist/css/bootstrap.min.css');
 require('./css/main.css');
 import Vue from 'vue';
+import axios from 'axios';
 
 // let deneme={};
 
@@ -31,6 +32,15 @@ new Vue({
 
     },
     methods:{
+        deneme:function(){
+            console.log("asd");
+            axios.get('http://127.0.0.1:5000/course').then(
+                
+               response=>{
+                console.log(response.data)
+            })
+
+        },
         showHide:function(item,index){
             switch(item){
                 case "add":

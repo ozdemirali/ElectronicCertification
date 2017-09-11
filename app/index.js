@@ -10,32 +10,48 @@ new Vue({
     el:'#app',
     data:{
         message:"Hello Vue",
+        commanShowHide:true,
         addShowHide:false,
         editShowHide:false,
         educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
+        course:[],
+        teacher:[],
+        student:[],
+        newCourse:{},
         editData:{},
         selected:[],
-        kursData1:[],
-        kursData:[],
-        studentList:[
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-        ],
-
+       
     },
+   
     created:function(){
         axios.get('http://127.0.0.1:5000/course').then(
-
            response=>{
-               this.kursData=response.data.result;
-               console.log(this.kursData);
-               console.log(response.data.result);
-        })
+               this.course=response.data.result;
+            //    console.log(this.kursData);
+            //    console.log(response.data.result);
+        });
+        axios.get('http://127.0.0.1:5000/teacher').then(
+            response=>{
+                this.teacher=response.data.result;
+        });
+        axios.get('http://127.0.0.1:5000/student').then(
+            response=>{
+                this.student=response.data.result;
+        });
     },
     methods:{
+        saveCourse:function(){
+            console.log(this.newCourse);
+            axios.post('http://127.0.0.1:5000/course',this.newCourse)
+            .then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/course').then(
+                        response=>{
+                            this.course=response.data.result;
+                     });
+                }
+            )
+        },
         deneme:function(){
             console.log("asd");
             axios.get('http://127.0.0.1:5000/course').then(
@@ -49,21 +65,17 @@ new Vue({
             switch(item){
                 case "add":
                     this.addShowHide=!this.addShowHide;
-                    // this.styleObject.cursor='not-allowed';
-                    // console.log(item);
+                    this.commanShowHide=!this.commanShowHide;
                     break;
                 case "edit":
+                    console.log(index);
                     this.editShowHide=!this.editShowHide;
+                    this.commanShowHide=!this.commanShowHide;
                     if(this.editShowHide)
-                    this.editData=this.kursData[index];
-
-                    // console.log(this.editData);
-                    // console.log(this.kursData[index].educator)
+                    // this.editData=this.kursData[index];
                     break;
                 case "update":
                     this.editShowHide=!this.editShowHide;
-                    // console.log("update");
-                    // console.log( this.editData);
                 default:
             }
 

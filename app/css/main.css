@@ -54,7 +54,7 @@ header{
     float: right;
     /*border: 2px #ddd solid;
     border-radius: 3px;  */
-    position: relative;
+    /* position: relative; */
 }
 
 .rd-content a{

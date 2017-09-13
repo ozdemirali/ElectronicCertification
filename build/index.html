@@ -48,11 +48,11 @@
                   </tr>
                 </thead>
                 <tbody>
-                  <tr v-for="item in course" >
+                  <tr v-for="(item,index) in course" >
                       <td>{{item.id}}</td>
                       <td>{{item.name}}</td>
                       <td>{{item.status}}</td>
-                      <td>{{item.teacher_id}}</td>
+                      <td>{{item.teacher}}</td>
                       <td>{{item.qouta}}</td>
                       <td>{{item.start_date}}</td>
                       <td>{{item.end_date}}</td>
@@ -82,7 +82,13 @@
                  </tr>
                  <tr>
                   <th>Durumu</th>
-                  <td><input type="text" v-model="newCourse.status" class="form-control"></td>
+                  <td>
+                      <input type="radio" name="status" id="one" value="true" v-model="newCourse.status">
+                      <labe>Devam ediyor</label>
+                      <br>
+                      <input type="radio" name="status" id="one" value="false" v-model="newCourse.status">
+                      <labe>Bitti</label>
+                  </td>
                 </tr>
                  <tr>
                    <th>Eğitmeni</th>
@@ -168,28 +174,47 @@
                      <tbody>
                        <tr>
                          <th>Adı</th>
-                         <td><input type="text"  class="form-control" v-model="editData.name"></td>
-                       </tr>
-                       <tr>
-                         <th>Eğitmeni</th>
-                         <td>
-                           <select class="form-control" v-model="editData.educator" id="sel1">
-                              <option v-for="item in teacher" v-bind:value="item.id">{{item.name}} {{item.surname}}</option>
-                            </select>
-                            
+                         <td><input type="text"  class="form-control" v-model="editCourse.name">
                          </td>
                        </tr>
                        <tr>
+                        <th>Durumu</th>
+                        <td>
+                            <input type="radio" name="status" id="one" value="true" v-model="editCourse.status">
+                            <labe>Devam ediyor</label>
+                            <br>
+                            <input type="radio" name="status" id="one" value="false" v-model="editCourse.status">
+                            <labe>Bitti</label>
+                        </td>    
+                      </tr>
+                       <tr>
+                         <th>Eğitmeni</th>
+                         <td>
+                           <select class="form-control" v-model="editCourse.teacher_id" id="sel1">
+                              <option v-for="item in teacher" v-bind:value="item.id">{{item.name}} {{item.surname}}</option>
+                            </select>
+                         </td>
+                       </tr>
+                       <tr>
+                        <th>Kontenjan</th>
+                        <td><input type="text" v-model="editCourse.qouta" class="form-control"></td>
+                      </tr>   
+                       
+                       <tr>
                          <th>Kurs Başlama Tarihi</th>
-                         <td><input type="text" v-model="editData.startDate" class="form-control"></td>
+                         <td><input type="text" v-model="editCourse.start_date" class="form-control"></td>
                        </tr>
                        <tr>
                          <th>Kurs Bitiş Tarihi</th>
-                         <td><input type="text" v-model="editData.endDate" class="form-control"></td>
+                         <td><input type="text" v-model="editCourse.end_date" class="form-control"></td>
                        </tr>
                        <tr>
+                        <th>Saat</th>
+                        <td><input type="text" v-model="editCourse.hour" class="form-control"></td>
+                      </tr>
+                       <tr>
                          <th>Devamsızlık Sınırı</th>
-                         <td><input type="text" v-model="editData.nonattendance" class="form-control"></td>
+                         <td><input type="text" v-model="editCourse.limit" class="form-control"></td>
                        </tr>
                        <tr>
                          <td colspan="2" style="text-align: right"><a class="btn btn-default"  v-on:click="showHide('update')">Kaydet</a>

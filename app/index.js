@@ -1,4 +1,6 @@
 require('bootstrap/dist/css/bootstrap.min.css');
+require('jquery/src/jquery.js');
+require('bootstrap/dist/js/bootstrap.js');
 require('./css/main.css');
 import Vue from 'vue';
 import axios from 'axios';
@@ -16,7 +18,9 @@ new Vue({
         educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
         course:[],
         teacher:[],
+        newTeacher:{},
         student:[],
+        newStudent:{},
         newCourse:{},
         editCourse:{},
         editData:{},
@@ -54,6 +58,32 @@ new Vue({
                      });
                 }
             )
+        },
+        saveTeacher:function(){
+            axios.post('http://127.0.0.1:5000/teacher',this.newTeacher).then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/teacher').then(
+                        response=>{
+                            this.teacher=response.data.result;
+                            this.newTeacher={};
+                        }
+                    )
+                }
+            )
+
+        },
+        saveStudent:function(){
+            axios.post('http://127.0.0.1:5000/student',this.newStudent)
+            .then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/student').then(
+                        response=>{
+                            this.student=response.data.result;
+                            this.newStudent={};
+                        });
+                }
+            )
+
         },
         deneme:function(){
             console.log("asd");

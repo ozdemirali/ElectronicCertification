@@ -51,7 +51,8 @@
                   <tr v-for="(item,index) in course" >
                       <td>{{item.id}}</td>
                       <td>{{item.name}}</td>
-                      <td>{{item.status}}</td>
+                      <td v-if="item.status">Devam ediyor</td>
+                      <td v-else>Bitti</td>
                       <td>{{item.teacher}}</td>
                       <td>{{item.qouta}}</td>
                       <td>{{item.start_date}}</td>
@@ -93,9 +94,12 @@
                  <tr>
                    <th>Eğitmeni</th>
                    <td>
-                     <select class="form-control" id="sel1" v-model="newCourse.teacher_id">
+                      
+                     <select class="form-control" style="width:90%; display:inline"  id="sel1" v-model="newCourse.teacher_id">
                         <option v-for="item in teacher" v-bind:value="item.id">{{item.name}} {{item.surname}}</option>
                       </select>
+                      <a class="btn btn-default " style="width:10%;display:inline" data-toggle="modal" 
+                      data-target="#myModalTeacher" >+</a>
                    </td>
                  </tr>
                  <tr>
@@ -136,7 +140,8 @@
               <tr>
                 <th colspan="4">Öğrenci Listesi</th>
                 <th>
-                  <a class="btn btn-default">+</a>
+                  <a class="btn btn-default" data-toggle="modal" 
+                  data-target="#myModalStudent" >+</a>
                 </th>
               </tr>
               <tr>
@@ -152,7 +157,7 @@
                 <td>{{item.id}}</td>
                 <td>{{item.identity}}</td>
                 <td>{{item.name}}</td>
-                <td>{{item.surName}}</td>
+                <td>{{item.surname}}</td>
                 <td>{{item.grade}}</td>
               </tr>
             </tbody>
@@ -240,11 +245,102 @@
       <!--End Footer-->
 
     
+        <!-- Modal student add -->
+        <div class="modal fade" id="myModalStudent" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Öğrenci Ekleme</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th>T.C. Kimlik No</th>
+                            <td><input type="text"  class="form-control" v-model="newStudent.identity">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Adı</th>
+                            <td>
+                               <input type="text" class="form-control" v-model="newStudent.name">
+                           </td>    
+                          </tr>
+                          <tr>
+                            <th>Soyadı</th>
+                            <td>
+                              <input type="text" class="form-control" v-model="newStudent.surname">
+                            </td>
+                          </tr>
+                          <tr>
+                           <th>Sınıfı</th>
+                           <td><input type="text" v-model="newStudent.grade" class="form-control"></td>
+                         </tr>   
+                         </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" v-on:click="saveStudent">Kaydet</a>
+                  <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                </div>
+              </div>
+              
+            </div>
+          </div>
+
+        <!--End Modal student add  -->
+
+        <!-- Modal teacher add -->
+        <div class="modal fade" id="myModalTeacher" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Öğretmen Ekleme</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th>T.C. Kimlik No</th>
+                            <td><input type="text"  class="form-control" v-model="newTeacher.identity">
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Adı</th>
+                            <td>
+                               <input type="text" class="form-control" v-model="newTeacher.name">
+                           </td>    
+                          </tr>
+                          <tr>
+                            <th>Soyadı</th>
+                            <td>
+                              <input type="text" class="form-control" v-model="newTeacher.surname">
+                            </td>
+                          </tr>
+                         </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" v-on:click="saveTeacher">Kaydet</a>
+                  <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        <!-- End Modal teacher add -->
     </div>
     <!--End Main Container-->
 
      
         <script src="./bundle.js"></script>
+     
      
   </body>
 </html>

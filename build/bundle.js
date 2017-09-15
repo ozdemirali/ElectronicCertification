@@ -1401,61 +1401,103 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
     el:'#app',
     data:{
         message:"Hello Vue",
+        commanShowHide:true,
         addShowHide:false,
         editShowHide:false,
         educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
+        course:[],
+        teacher:[],
+        student:[],
+        newCourse:{},
+        editCourse:{},
         editData:{},
-        selected:[],
-        kursData:[
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Cantekin Çelikhası",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
-            {name:"İş Güvenliği",state:"Devam Ediyor",educator:"Ali Özdemir",quota:"30",startDate:"01.08.2017",endDate:"15.08.2017",hour:"30"},
-        ],
-        studentList:[
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-            {id:"12564698523",name:"Can",surName:"Demir",class:"Tl-12V"},
-        ],
-
+    },
+   
+    created:function(){
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
+           response=>{
+               this.course=response.data.result;
+            //    console.log(this.kursData);
+            //    console.log(response.data.result);
+        });
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/teacher').then(
+            response=>{
+                this.teacher=response.data.result;
+        });
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/student').then(
+            response=>{
+                this.student=response.data.result;
+        });
     },
     methods:{
+        saveCourse:function(){
+            // console.log(this.newCourse);
+            if(this.newCourse.status=="true")
+                this.newCourse.status=true;
+            else
+                this.newCourse.status=false;
+            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://127.0.0.1:5000/course',this.newCourse)
+            .then(
+                response=>{
+                    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
+                        response=>{
+                            this.course=response.data.result;
+                     });
+                }
+            )
+        },
         deneme:function(){
             console.log("asd");
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
-                
+
                response=>{
                 console.log(response.data)
             })
 
         },
-        showHide:function(item,index){
+        showHide:function(item,id){
             switch(item){
                 case "add":
                     this.addShowHide=!this.addShowHide;
-                    // this.styleObject.cursor='not-allowed';
-                    // console.log(item);
+                    this.commanShowHide=!this.commanShowHide;
                     break;
                 case "edit":
+                    console.log(id);
+                    //console.log(item)
                     this.editShowHide=!this.editShowHide;
-                    if(this.editShowHide)  
-                    this.editData=this.kursData[index];
-
-                    console.log(this.editData);
-                    console.log(this.kursData[index].educator)
+                    this.commanShowHide=!this.commanShowHide;
+                    
+                    if(this.editShowHide)
+                        {
+                            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course/'+id).then(
+                                
+                                               response=>{
+                                                   this.editCourse=response.data;
+                                                //    console.log(response.data);
+                                            });
+                        }
                     break;
                 case "update":
+                    console.log(this.editCourse.status);
+                    if(this.editCourse.status=="true")
+                        this.editCourse.status=true;
+                    else
+                        this.editCourse.status=false;
+                    
+                    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.put('http://127.0.0.1:5000/course',this.editCourse).then(
+                        response=>{
+                            __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
+                                response=>{
+                                    this.course=response.data.result;
+                             });
+                        });    
                     this.editShowHide=!this.editShowHide;
-                    console.log("update");
-                    console.log( this.editData);    
+                    this.commanShowHide=!this.commanShowHide;
                 default:
             }
 
         },
-        
+
     }
 });
 
@@ -1663,7 +1705,7 @@ exports = module.exports = __webpack_require__(2)(undefined);
 
 
 // module
-exports.push([module.i, "body{\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    font-family:\"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.4; \r\n    color:#000;\r\n    background-color: #fff; \r\n}\r\n\r\n.comman{\r\n    border: 2px #ddd solid;\r\n    border-radius: 3px;\r\n}\r\n\r\n.comman-height{\r\n    min-height: 800px;\r\n}\r\n.container{\r\n    border-radius: 6px;\r\n    background-color: #EEE;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\nheader{\r\n    text-align: center;\r\n}\r\n\r\n.main-content{\r\n    padding-bottom: 20px;\r\n}\r\n.lf-content{\r\n    float:left;\r\n    width:20%;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;*/\r\n}\r\n\r\n.lf-content ul{\r\n    padding: 2px;\r\n}\r\n.lf-content ul li{\r\n    list-style-type: none;\r\n}\r\n\r\n.lf-content ul li a{\r\n    display: block;\r\n    text-align: left;\r\n    color: #000;\r\n    background-color: #eee;\r\n} \r\n.rd-content{\r\n    width: 80%;\r\n    float: right;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;  */\r\n    position: relative;\r\n}\r\n\r\n.rd-content a{\r\n    padding-top: 0;\r\n    padding-bottom: 0;\r\n}\r\n\r\n.course{\r\n    position: absolute;\r\n    left: 50%;\r\n    top: 40%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: #fff;\r\n}\r\n\r\n.course table tr th{\r\n    vertical-align: middle;\r\n}\r\n.box{\r\n    padding: 2px;\r\n}\r\n.footer{\r\n    clear: both;\r\n    text-align: center;\r\n    padding-top: 4px;\r\n}\r\n\r\n\r\n\r\n", ""]);
+exports.push([module.i, "body{\r\n    padding-top: 10px;\r\n    padding-bottom: 10px;\r\n    font-family:\"Helvetica Neue\", Helvetica, Arial, sans-serif;\r\n    font-size: 14px;\r\n    line-height: 1.4; \r\n    color:#000;\r\n    background-color: #fff; \r\n}\r\n\r\n.comman{\r\n    border: 2px #ddd solid;\r\n    border-radius: 3px;\r\n}\r\n\r\n.comman-height{\r\n    min-height: 800px;\r\n}\r\n.container{\r\n    border-radius: 6px;\r\n    background-color: #EEE;\r\n    margin-left: auto;\r\n    margin-right: auto;\r\n}\r\nheader{\r\n    text-align: center;\r\n}\r\n\r\n.main-content{\r\n    padding-bottom: 20px;\r\n}\r\n.lf-content{\r\n    float:left;\r\n    width:20%;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;*/\r\n}\r\n\r\n.lf-content ul{\r\n    padding: 2px;\r\n}\r\n.lf-content ul li{\r\n    list-style-type: none;\r\n}\r\n\r\n.lf-content ul li a{\r\n    display: block;\r\n    text-align: left;\r\n    color: #000;\r\n    background-color: #eee;\r\n} \r\n.rd-content{\r\n    width: 80%;\r\n    float: right;\r\n    /*border: 2px #ddd solid;\r\n    border-radius: 3px;  */\r\n    /* position: relative; */\r\n}\r\n\r\n.rd-content a{\r\n    padding-top: 0;\r\n    padding-bottom: 0;\r\n}\r\n\r\n.course{\r\n    position: absolute;\r\n    left: 50%;\r\n    top: 40%;\r\n    transform: translate(-50%, -50%);\r\n    background-color: #fff;\r\n}\r\n\r\n.course table tr th{\r\n    vertical-align: middle;\r\n}\r\n.box{\r\n    padding: 2px;\r\n}\r\n.footer{\r\n    clear: both;\r\n    text-align: center;\r\n    padding-top: 4px;\r\n}\r\n\r\n\r\n\r\n", ""]);
 
 // exports
 

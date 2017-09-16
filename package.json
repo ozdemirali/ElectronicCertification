@@ -30,7 +30,9 @@
   "dependencies": {
     "axios": "^0.16.2",
     "bootstrap": "^3.3.7",
+    "bootstrap-datetimepicker": "0.0.7",
     "jquery": "^3.2.1",
+    "jquery-ui": "^1.12.1",
     "vue": "^2.4.2"
   }
 }

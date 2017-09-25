@@ -1,11 +1,15 @@
 require('bootstrap/dist/css/bootstrap.min.css');
-require('jquery/src/jquery.js');
-require('bootstrap/dist/js/bootstrap.js');
 require('./css/main.css');
+
+require('jquery/dist/jquery.min.js');
+require('bootstrap/dist/js/bootstrap.min.js');
+
+
+
 import Vue from 'vue';
 import axios from 'axios';
 
-// let deneme={};
+
 
 
 new Vue({
@@ -15,7 +19,7 @@ new Vue({
         commanShowHide:true,
         addShowHide:false,
         editShowHide:false,
-        educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
+        absentShowHide:false,
         course:[],
         teacher:[],
         newTeacher:{},
@@ -25,7 +29,21 @@ new Vue({
         editCourse:{},
         editData:{},
     },
+    mounted() {
+        $("#startDate").datepicker().on(
+           "changeDate", () => {this.newCourse.start_date = $('#startDate').val()}
+        );
+        $("#endDate").datepicker().on(
+            "changeDate", () => {this.newCourse.end_date = $('#endDate').val()}
+         );
+         $("#editStartDate").datepicker().on(
+            "changeDate", () => {this.editCourse.start_date = $('#editStartDate').val()}
+         );
+         $("#editEndDate").datepicker().on(
+            "changeDate", () => {this.editCourse.end_date = $('#editEndDate').val()}
+         );
 
+    },
     created:function(){
         axios.get('http://127.0.0.1:5000/course').then(
            response=>{
@@ -49,6 +67,9 @@ new Vue({
                 this.newCourse.status=true;
             else
                 this.newCourse.status=false;
+            console.log(this.newCourse.start_date);
+            console.log(this.newCourse.end_date);
+            console.log(this.newCourse);
             axios.post('http://127.0.0.1:5000/course',this.newCourse)
             .then(
                 response=>{
@@ -132,10 +153,33 @@ new Vue({
                         });    
                     this.editShowHide=!this.editShowHide;
                     this.commanShowHide=!this.commanShowHide;
+                    break;
+                case "course":
+                    //console.log(item);
+                    this.commanShowHide=true;
+                    this.absentShowHide=false;
+                    this.addShowHide=false;
+                    this.editShowHide=false;
+                    this.editCourse=false;
+                    break;
+                case "absent":
+                    //console.log(item);
+                    this.absentShowHide=true;
+                    this.commanShowHide=false;
+                    this.addShowHide=false;
+                    this.editShowHide=false;
+                    this.editCourse=false;
+                    break;
                 default:
             }
 
         },
 
-    }
+    },
+    watch: {
+        // startDate: function() {
+        //     alert("DATA: " + this.startDate);
+        // }
+      }
+
 });

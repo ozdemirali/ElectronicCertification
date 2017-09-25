@@ -19,8 +19,8 @@
       <!--Left Container-->
       <div class="lf-content comman comman-height">
         <ul>
-          <li><a class="btn btn-default">Kurs</a></li>
-          <li><a class="btn btn-default">Devamsızlık</a></li>
+          <li><a class="btn btn-default" v-on:click="showHide('course')">Kurs</a></li>
+          <li><a class="btn btn-default"v-on:click="showHide('absent')">Devamsızlık</a></li>
         </ul>
       </div>
       <!--End Left Container-->
@@ -55,7 +55,9 @@
                       <td v-else>Bitti</td>
                       <td>{{item.teacher}}</td>
                       <td>{{item.qouta}}</td>
-                      <td>{{item.start_date}}</td>
+                      <td>{{item.start_date}}  
+                       
+                      </td>
                       <td>{{item.end_date}}</td>
                       <td>{{item.limit}}</td>
                       <td>{{item.hour}}</td>
@@ -119,12 +121,12 @@
                  <tr>
                    <th>Kurs Başlama Tarihi</th>
                    <td>
-                     <input type="text" class="form-control" v-model="newCourse.start_date">
+                     <input type="text" class="form-control" id="startDate" v-model="newCourse.start_date">
                   </td>
                  </tr>
                  <tr>
                    <th>Kurs Bitiş Tarihi</th>
-                   <td><input type="text" class="form-control" v-model="newCourse.end_date"></td>
+                   <td><input type="text" class="form-control" id="endDate" v-model="newCourse.end_date"></td>
                  </tr>
                  <tr>
                   <th>Saat</th>
@@ -221,11 +223,11 @@
                        
                        <tr>
                          <th>Kurs Başlama Tarihi</th>
-                         <td><input type="text" v-model="editCourse.start_date" class="form-control"></td>
+                         <td><input type="text" id="editStartDate" v-model="editCourse.start_date" class="form-control"></td>
                        </tr>
                        <tr>
                          <th>Kurs Bitiş Tarihi</th>
-                         <td><input type="text" v-model="editCourse.end_date" class="form-control"></td>
+                         <td><input type="text" id="editEndDate"  v-model="editCourse.end_date" class="form-control"></td>
                        </tr>
                        <tr>
                         <th>Saat</th>
@@ -245,7 +247,21 @@
 
           </div> 
          <!-- End Edit Kurs -->
-      
+      <!--Absent  -->
+         <div class="comman" v-show="absentShowHide">
+            <div>
+              <table class="table" >
+                <thead>
+                  <th>Devamsızlık Girme</th>
+                  <th style="text-align:right">
+                      <button type="button" class="close" v-on:click="showHide('course')" >&times;</button>
+                  </th>
+                </thead>
+
+              </table>
+            </div>             
+         </div>
+      <!--End Absent  -->
     </div>
       <!--End Right Container-->
       </div>
@@ -349,11 +365,17 @@
             </div>
           </div>
         <!-- End Modal teacher add -->
+    
     </div>
     <!--End Main Container-->
 
-     
-        <script src="./bundle.js"></script>
-      
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.js" ></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/js/bootstrap-datepicker.js"></script>
+    <script src="./bundle.js"></script>
+        
+       
+         
   </body>
 </html>

@@ -13,6 +13,7 @@ module.exports={
         path:PATHS.build,
         filename:'bundle.js'
     },
+
     resolve:{
         alias:{
             'vue':'vue/dist/vue.min.js',

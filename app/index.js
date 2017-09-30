@@ -25,7 +25,9 @@ new Vue({
         teacher:[],
         newTeacher:{},
         //student:[],
-        newStudent:{},
+        newStudent:{
+            identity:""
+        },
         newCourse:{},
         editCourse:{},
         editData:{},
@@ -52,10 +54,7 @@ new Vue({
                this.course=response.data.result;
         });
 
-        // axios.get('http://127.0.0.1:5000/course/student').then(
-        //     response=>{
-        //         this.courseStudent=response.data.result;
-        //  });
+       
 
         axios.get('http://127.0.0.1:5000/teacher').then(
             response=>{
@@ -105,7 +104,9 @@ new Vue({
                     axios.get('http://127.0.0.1:5000/course/student/'+this.newCourse.id).then(
                         response=>{
                             this.courseStudent=response.data.result;
-                            this.newStudent={};
+                            this.newStudent={
+                                identity:""
+                            };
                         });
                 }
             )
@@ -115,8 +116,12 @@ new Vue({
               //console.log(this.newStudent.identity) 
               axios.get('http://127.0.0.1:5000/student/'+this.newStudent.identity).then(
                   response=>{
-                    this.newStudent=response.data;
-                      console.log(response.data);
+                     if ( response.data.identity == null)
+                        this.newStudent={
+                            identity:""
+                        }
+                    else      
+                        this.newStudent=response.data;
                   }
               )
         },

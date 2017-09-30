@@ -167,8 +167,8 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="item in student" >
-                <td>{{item.id}}</td>
+              <tr v-for="(item,index) in courseStudent" >
+                <td>{{index+1}}</td>
                 <td>{{item.identity}}</td>
                 <td>{{item.name}}</td>
                 <td>{{item.surname}}</td>
@@ -250,13 +250,56 @@
       <!--Absent  -->
          <div class="comman" v-show="absentShowHide">
             <div>
-              <table class="table" >
+              <table class="table table-striped" >
                 <thead>
                   <th>Devamsızlık Girme</th>
                   <th style="text-align:right">
                       <button type="button" class="close" v-on:click="showHide('course')" >&times;</button>
                   </th>
                 </thead>
+                <tbody>
+                  <tr>
+                    <td colspan="2">
+                        <select class="form-control" >
+                            <option v-for="item in course" v-bind:value="item.bind" >{{item.name}}</option>
+                          </select>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td>
+                      Adı Soyadı
+                    </td>
+                    <td>Devamsızlığı</td>
+                  </tr>
+                  <tr v-for="">
+                      <td></td>
+                      <td>
+                         <input type="number" type="text" class="form-control">
+                      </td>
+                  </tr>
+                    <!-- <td>
+                       <table class="table table-striped">
+                         <tbody>
+                           <thead>
+                             <th>Adı ve Soyadı</th>
+                             <th>Devamsızlığı</th>
+                           </thead>
+                             <tr v-for="item in student">
+                               <td>{{item.name}} {{item.surname}}</td>
+                               <td>
+                                  <input type="number" type="text" class="form-control">
+                               </td>
+                             </tr>
+                         </tbody>
+                       </table>
+                    </td> -->
+                 
+                  <tr>
+                      <td colspan="2" style="text-align: right">
+                        <a class="btn btn-default" >Kaydet</a>
+                      </td>
+                    </tr>
+                </tbody>
 
               </table>
             </div>             
@@ -290,7 +333,16 @@
                         <tbody>
                           <tr>
                             <th>T.C. Kimlik No</th>
-                            <td><input type="text"  class="form-control" v-model="newStudent.identity">
+                            <td>
+                                <div class="input-group-btn">
+                                    <div class="input-group">
+                                        <input type="text"  class="form-control" v-model="newStudent.identity">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default" v-on:click="findStudent">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                              </button>
+                                        </div>
+                                      </div>
                             </td>
                           </tr>
                           <tr>
@@ -313,7 +365,8 @@
                     </table>
                 </div>
                 <div class="modal-footer">
-                    <a class="btn btn-default" v-on:click="saveStudent">Kaydet</a>
+                    <a class="btn btn-default" v-on:click="saveStudent">Kaydet ve Ekle</a>
+                    <a class="btn btn-default" v-on:click="saveCourseStudent">Kaydet</a>
                   <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                 </div>
               </div>

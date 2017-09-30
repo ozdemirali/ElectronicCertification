@@ -1410,11 +1410,12 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         commanShowHide:true,
         addShowHide:false,
         editShowHide:false,
-        educator:["Ali Özdemir","Cantekin Çelikhası","Fatih Şahinbaş"],
+        absentShowHide:false,
         course:[],
+        courseStudent:[],
         teacher:[],
         newTeacher:{},
-        student:[],
+        // student:[],
         newStudent:{},
         newCourse:{},
         editCourse:{},
@@ -1427,37 +1428,40 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
         $("#endDate").datepicker().on(
             "changeDate", () => {this.newCourse.end_date = $('#endDate').val()}
          );
+         $("#editStartDate").datepicker().on(
+            "changeDate", () => {this.editCourse.start_date = $('#editStartDate').val()}
+         );
+         $("#editEndDate").datepicker().on(
+            "changeDate", () => {this.editCourse.end_date = $('#editEndDate').val()}
+         );
 
     },
     created:function(){
         __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
            response=>{
                this.course=response.data.result;
-            //    console.log(this.kursData);
-            //    console.log(response.data.result);
         });
+
+        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course/student').then(
+            response=>{
+                this.courseStudent=response.data.result;
+         });
+
         __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/teacher').then(
             response=>{
                 this.teacher=response.data.result;
         });
-        __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/student').then(
-            response=>{
-                this.student=response.data.result;
-        });
+        // axios.get('http://127.0.0.1:5000/student').then(
+        //     response=>{
+        //         this.student=response.data.result;
+        // });
     },
     methods:{
         saveCourse:function(){
-            // console.log(this.newCourse);
-            if(this.newCourse.status=="true")
-                this.newCourse.status=true;
-            else
-                this.newCourse.status=false;
-            console.log(this.newCourse.start_date);
-            console.log(this.newCourse.end_date);
-            console.log(this.newCourse);
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://127.0.0.1:5000/course',this.newCourse)
             .then(
                 response=>{
+                    this.newCourse.id=response.data.id;
                     __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/course').then(
                         response=>{
                             this.course=response.data.result;
@@ -1482,11 +1486,12 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
             __WEBPACK_IMPORTED_MODULE_1_axios___default.a.post('http://127.0.0.1:5000/student',this.newStudent)
             .then(
                 response=>{
-                    __WEBPACK_IMPORTED_MODULE_1_axios___default.a.get('http://127.0.0.1:5000/student').then(
-                        response=>{
-                            this.student=response.data.result;
-                            this.newStudent={};
-                        });
+                    
+                    // axios.get('http://127.0.0.1:5000/student').then(
+                    //     response=>{
+                    //         this.student=response.data.result;
+                    //         this.newStudent={};
+                    //     });
                 }
             )
 
@@ -1538,6 +1543,23 @@ new __WEBPACK_IMPORTED_MODULE_0_vue___default.a({
                         });    
                     this.editShowHide=!this.editShowHide;
                     this.commanShowHide=!this.commanShowHide;
+                    break;
+                case "course":
+                    //console.log(item);
+                    this.commanShowHide=true;
+                    this.absentShowHide=false;
+                    this.addShowHide=false;
+                    this.editShowHide=false;
+                    this.editCourse=false;
+                    break;
+                case "absent":
+                    //console.log(item);
+                    this.absentShowHide=true;
+                    this.commanShowHide=false;
+                    this.addShowHide=false;
+                    this.editShowHide=false;
+                    this.editCourse=false;
+                    break;
                 default:
             }
 

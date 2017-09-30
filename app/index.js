@@ -21,14 +21,16 @@ new Vue({
         editShowHide:false,
         absentShowHide:false,
         course:[],
+        courseStudent:[],
         teacher:[],
         newTeacher:{},
-        student:[],
+        //student:[],
         newStudent:{},
         newCourse:{},
         editCourse:{},
         editData:{},
     },
+   
     mounted() {
         $("#startDate").datepicker().on(
            "changeDate", () => {this.newCourse.start_date = $('#startDate').val()}
@@ -48,31 +50,24 @@ new Vue({
         axios.get('http://127.0.0.1:5000/course').then(
            response=>{
                this.course=response.data.result;
-            //    console.log(this.kursData);
-            //    console.log(response.data.result);
         });
+
+        // axios.get('http://127.0.0.1:5000/course/student').then(
+        //     response=>{
+        //         this.courseStudent=response.data.result;
+        //  });
+
         axios.get('http://127.0.0.1:5000/teacher').then(
             response=>{
                 this.teacher=response.data.result;
         });
-        axios.get('http://127.0.0.1:5000/student').then(
-            response=>{
-                this.student=response.data.result;
-        });
     },
     methods:{
         saveCourse:function(){
-            // console.log(this.newCourse);
-            if(this.newCourse.status=="true")
-                this.newCourse.status=true;
-            else
-                this.newCourse.status=false;
-            console.log(this.newCourse.start_date);
-            console.log(this.newCourse.end_date);
-            console.log(this.newCourse);
             axios.post('http://127.0.0.1:5000/course',this.newCourse)
             .then(
                 response=>{
+                    this.newCourse.id=response.data.id;
                     axios.get('http://127.0.0.1:5000/course').then(
                         response=>{
                             this.course=response.data.result;
@@ -97,33 +92,44 @@ new Vue({
             axios.post('http://127.0.0.1:5000/student',this.newStudent)
             .then(
                 response=>{
-                    axios.get('http://127.0.0.1:5000/student').then(
-                        response=>{
-                            this.student=response.data.result;
-                            this.newStudent={};
-                        });
+                    // console.log(response.data)
+                    this.newStudent=response.data;
+                    this.saveCourseStudent();
                 }
             )
 
         },
-        deneme:function(){
-            console.log("asd");
-            axios.get('http://127.0.0.1:5000/course').then(
-
-               response=>{
-                console.log(response.data)
-            })
-
+        saveCourseStudent:function(){
+            axios.post('http://127.0.0.1:5000/course/student',{Course_id:this.newCourse.id,Student_id:this.newStudent.id}).then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/course/student/'+this.newCourse.id).then(
+                        response=>{
+                            this.courseStudent=response.data.result;
+                            this.newStudent={};
+                        });
+                }
+            )
         },
+
+        findStudent:function(){
+              //console.log(this.newStudent.identity) 
+              axios.get('http://127.0.0.1:5000/student/'+this.newStudent.identity).then(
+                  response=>{
+                    this.newStudent=response.data;
+                      console.log(response.data);
+                  }
+              )
+        },
+        
         showHide:function(item,id){
             switch(item){
                 case "add":
                     this.addShowHide=!this.addShowHide;
                     this.commanShowHide=!this.commanShowHide;
+                    this.newCourse={};
+                    this.courseStudent=[];
                     break;
                 case "edit":
-                    console.log(id);
-                    //console.log(item)
                     this.editShowHide=!this.editShowHide;
                     this.commanShowHide=!this.commanShowHide;
                     

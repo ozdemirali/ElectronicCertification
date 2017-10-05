@@ -182,7 +182,7 @@
              
       </div>
       <!--End Course Add and Edit Screea -->
-         <!--Edit Kurs  -->
+         <!--Edit Kurs -->
           <div class="comman" v-show="editShowHide">
             <div>
                 <table class="table">
@@ -244,9 +244,43 @@
                       </tbody>
                  </table>
               </div>
-
+              <hr>
+              <!-- Edit Student -->
+              <div>
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th colspan="5">Öğrenci Listesi</th>
+                          <th>
+                            <a class="btn btn-default" data-toggle="modal" 
+                            data-target="#myModalEditStudent" >+</a>
+                          </th>
+                        </tr>
+                        <tr>
+                          <th>S.No</th>
+                          <th>T.C. Kimlik</th>
+                          <th>Adı</th>
+                          <th>Soyadı</th>
+                          <th>Sınıfı</th>
+                          <th></th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                         <tr v-for="(item,index) in editCourseStudent" >
+                            <td>{{index+1}}</td>
+                            <td>{{item.identity}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.surname}}</td>
+                            <td>{{item.grade}}</td>
+                            <td><a class="btn btn-default" v-on:click="deleteCourseStudent(item.delete_id)">-</a></td>
+                          </tr>
+                      </tbody>
+                    </table>
+              </div>
+              <!--End Edit Student  -->
           </div> 
-         <!-- End Edit Kurs -->
+
+         <!-- End Edit Kurs and Student -->
       <!--Absent  -->
          <div class="comman" v-show="absentShowHide">
             <div>
@@ -277,23 +311,6 @@
                          <input type="number" type="text" class="form-control">
                       </td>
                   </tr>
-                    <!-- <td>
-                       <table class="table table-striped">
-                         <tbody>
-                           <thead>
-                             <th>Adı ve Soyadı</th>
-                             <th>Devamsızlığı</th>
-                           </thead>
-                             <tr v-for="item in student">
-                               <td>{{item.name}} {{item.surname}}</td>
-                               <td>
-                                  <input type="number" type="text" class="form-control">
-                               </td>
-                             </tr>
-                         </tbody>
-                       </table>
-                    </td> -->
-                 
                   <tr>
                       <td colspan="2" style="text-align: right">
                         <a class="btn btn-default" >Kaydet</a>
@@ -367,7 +384,6 @@
                 <div class="modal-footer">
                     <a class="btn btn-default" v-on:click="saveStudent">Kaydet ve Ekle</a>
                     <a class="btn btn-default" v-on:click="saveCourseStudent">Kaydet</a>
-                  <!-- <button type="button" class="btn btn-default" data-dismiss="modal">Close</button> -->
                 </div>
               </div>
               
@@ -375,6 +391,62 @@
           </div>
 
         <!--End Modal student add  -->
+
+        <!--Modal editStudent -->
+         <div class="modal fade" id="myModalEditStudent" role="dialog">
+            <div class="modal-dialog">
+            
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Öğrenci Ekleme</h4>
+                </div>
+                <div class="modal-body">
+                    <table class="table">
+                        <tbody>
+                          <tr>
+                            <th>T.C. Kimlik No</th>
+                            <td>
+                                <div class="input-group-btn">
+                                    <div class="input-group">
+                                        <input type="text"  class="form-control" v-model="newStudent.identity">
+                                        <div class="input-group-btn">
+                                            <button type="button" class="btn btn-default" v-on:click="findStudent" :disabled="!newStudent.identity">
+                                                <span class="glyphicon glyphicon-search"></span>
+                                              </button>
+                                        </div>
+                                      </div>
+                            </td>
+                          </tr>
+                          <tr>
+                            <th>Adı</th>
+                            <td>
+                               <input type="text" class="form-control" v-model="newStudent.name">
+                           </td>    
+                          </tr>
+                          <tr>
+                            <th>Soyadı</th>
+                            <td>
+                              <input type="text" class="form-control" v-model="newStudent.surname">
+                            </td>
+                          </tr>
+                          <tr>
+                           <th>Sınıfı</th>
+                           <td><input type="text" v-model="newStudent.grade" class="form-control"></td>
+                         </tr>   
+                         </tbody>
+                    </table>
+                </div>
+                <div class="modal-footer">
+                    <a class="btn btn-default" v-on:click="saveEditStudent">Kaydet ve Ekle</a>
+                    <a class="btn btn-default" v-on:click="saveEditCourseStudent">Kaydet</a>
+                </div>
+              </div>
+              
+            </div>
+          </div>
+        <!--End Modal editStudent -->
 
         <!-- Modal teacher add -->
         <div class="modal fade" id="myModalTeacher" role="dialog">

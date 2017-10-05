@@ -30,20 +30,29 @@ new Vue({
         },
         newCourse:{},
         editCourse:{},
+        editCourseStudent:[],
         editData:{},
     },
    
     mounted() {
-        $("#startDate").datepicker().on(
+        $("#startDate").datepicker({
+            format:"dd/mm/yyyy"
+        }).on(
            "changeDate", () => {this.newCourse.start_date = $('#startDate').val()}
         );
-        $("#endDate").datepicker().on(
+        $("#endDate").datepicker({
+            format:"dd/mm/yyyy"
+        }).on(
             "changeDate", () => {this.newCourse.end_date = $('#endDate').val()}
          );
-         $("#editStartDate").datepicker().on(
+         $("#editStartDate").datepicker({
+            format:"dd/mm/yyyy"
+         }).on(
             "changeDate", () => {this.editCourse.start_date = $('#editStartDate').val()}
          );
-         $("#editEndDate").datepicker().on(
+         $("#editEndDate").datepicker({
+            format:"dd/mm/yyyy"
+         }).on(
             "changeDate", () => {this.editCourse.end_date = $('#editEndDate').val()}
          );
 
@@ -99,6 +108,8 @@ new Vue({
 
         },
         saveCourseStudent:function(){
+
+
             axios.post('http://127.0.0.1:5000/course/student',{Course_id:this.newCourse.id,Student_id:this.newStudent.id}).then(
                 response=>{
                     axios.get('http://127.0.0.1:5000/course/student/'+this.newCourse.id).then(
@@ -111,6 +122,47 @@ new Vue({
                 }
             )
         },
+
+        saveEditStudent:function(){
+            axios.post('http://127.0.0.1:5000/student',this.newStudent)
+            .then(
+                response=>{
+                    // console.log(response.data)
+                    this.newStudent=response.data;
+                    this.saveEditCourseStudent();
+                }
+            )
+
+        },
+        saveEditCourseStudent:function(){
+
+        
+            axios.post('http://127.0.0.1:5000/course/student',{Course_id:this.editCourse.id,Student_id:this.newStudent.id}).then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/course/student/'+this.editCourse.id).then(
+                        response=>{
+                            this.editCourseStudent=response.data.result;
+                            this.newStudent={
+                                identity:""
+                            };
+                        });
+                }
+            )
+        },
+
+        deleteCourseStudent:function(id){
+            console.log(this.editCourse.id);
+            console.log(id);
+            axios.delete('http://127.0.0.1:5000/course/student/'+id).then(
+                response=>{
+                    axios.get('http://127.0.0.1:5000/course/student/'+this.editCourse.id).then(
+                        response=>{
+                            this.editCourseStudent=response.data.result;
+                        });
+                }    
+                )
+        },
+
 
         findStudent:function(){
               //console.log(this.newStudent.identity) 
@@ -137,7 +189,7 @@ new Vue({
                 case "edit":
                     this.editShowHide=!this.editShowHide;
                     this.commanShowHide=!this.commanShowHide;
-                    
+
                     if(this.editShowHide)
                         {
                             axios.get('http://127.0.0.1:5000/course/'+id).then(
@@ -146,6 +198,13 @@ new Vue({
                                                    this.editCourse=response.data;
                                                 //    console.log(response.data);
                                             });
+
+                            axios.get('http://127.0.01:5000/course/student/'+id).then(
+                                    response=>{
+                                        this.editCourseStudent=response.data.result;
+                                        console.log(this.editCourseStudent);
+                                    }
+                                );
                         }
                     break;
                 case "update":

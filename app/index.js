@@ -32,6 +32,10 @@ new Vue({
         editCourse:{},
         editCourseStudent:[],
         editData:{},
+        findCourseId:1,
+        absent_Date:'',
+        absentCourseStudent:[],
+        absentCourseStudentHour:[]
     },
    
     mounted() {
@@ -54,6 +58,11 @@ new Vue({
             format:"dd/mm/yyyy"
          }).on(
             "changeDate", () => {this.editCourse.end_date = $('#editEndDate').val()}
+         );
+         $("#absentDate").datepicker({
+            format:"dd/mm/yyyy"
+         }).on(
+            "changeDate",()=>{this.absent_Date=$('#absentDate').val()}
          );
 
     },
@@ -108,8 +117,6 @@ new Vue({
 
         },
         saveCourseStudent:function(){
-
-
             axios.post('http://127.0.0.1:5000/course/student',{Course_id:this.newCourse.id,Student_id:this.newStudent.id}).then(
                 response=>{
                     axios.get('http://127.0.0.1:5000/course/student/'+this.newCourse.id).then(
@@ -151,8 +158,6 @@ new Vue({
         },
 
         deleteCourseStudent:function(id){
-            console.log(this.editCourse.id);
-            console.log(id);
             axios.delete('http://127.0.0.1:5000/course/student/'+id).then(
                 response=>{
                     axios.get('http://127.0.0.1:5000/course/student/'+this.editCourse.id).then(
@@ -178,6 +183,43 @@ new Vue({
               )
         },
         
+
+        findCourseStudent:function(){
+            axios.get('http://127.0.0.1:5000/course/rollcall/'+this.findCourseId).then(
+                response=>{
+                    this.absentCourseStudent=response.data.result;
+
+                     for (var i = 0; i < this.absentCourseStudent.length; i++) {
+                         this.absentCourseStudent[i].hour=0;
+                     }
+
+
+                    //console.log(response.data);
+                        }            
+                )
+        },
+
+        saveAbsentCourseStudent:function(){
+            
+            this.absentCourseStudentHour=[];
+
+            for (var i = 0; i <  this.absentCourseStudent.length; i++) {
+                let item={};
+                item.Student_id=this.absentCourseStudent[i].id;
+                item.Course_id=this.findCourseId;
+                item.hour=this.absentCourseStudent[i].hour;
+                item.day_date=this.absent_Date;
+                this.absentCourseStudentHour.push(item);
+               
+            }
+            
+            axios.post('http://127.0.0.1:5000/course/rollcall',this.absentCourseStudentHour).then(
+                response=>{
+                    this.findCourseStudent();
+                        }
+                );
+            
+        },
         showHide:function(item,id){
             switch(item){
                 case "add":
@@ -202,13 +244,13 @@ new Vue({
                             axios.get('http://127.0.01:5000/course/student/'+id).then(
                                     response=>{
                                         this.editCourseStudent=response.data.result;
-                                        console.log(this.editCourseStudent);
+                                        //console.log(this.editCourseStudent);
                                     }
                                 );
                         }
                     break;
                 case "update":
-                    console.log(this.editCourse.status);
+                    //console.log(this.editCourse.status);
                     if(this.editCourse.status=="true")
                         this.editCourse.status=true;
                     else

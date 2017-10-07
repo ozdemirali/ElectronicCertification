@@ -7,7 +7,12 @@ body{
     color:#000;
     background-color: #fff; 
 }
-
+.wide-button-a{
+    display: block;
+    height: 32px;
+    text-align: center;
+    line-height: 32px;
+}
 .comman{
     border: 2px #ddd solid;
     border-radius: 3px;

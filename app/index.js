@@ -8,6 +8,8 @@ require('bootstrap/dist/js/bootstrap.min.js');
 
 import Vue from 'vue';
 import axios from 'axios';
+import moment from 'moment';
+Vue.prototype.moment = moment;
 
 
 
@@ -51,7 +53,7 @@ new Vue({
          );
          $("#editStartDate").datepicker({
             format:"dd/mm/yyyy"
-         }).on(
+        }).on(
             "changeDate", () => {this.editCourse.start_date = $('#editStartDate').val()}
          );
          $("#editEndDate").datepicker({
@@ -70,6 +72,12 @@ new Vue({
         axios.get('http://127.0.0.1:5000/course').then(
            response=>{
                this.course=response.data.result;
+
+               for (var i = 0; i < this.course.length; i++) {
+                   this.course[i].start_date=moment( this.course[i].start_date).format('DD/MM/YYYY');
+                     this.course[i].end_date=moment( this.course[i].end_date).format('DD/MM/YYYY');
+
+               }
         });
 
        
@@ -238,6 +246,8 @@ new Vue({
                                 
                                                response=>{
                                                    this.editCourse=response.data;
+                                                   this.editCourse.start_date=moment(this.start_date).format('DD/MM/YYYY');
+                                                   this.editCourse.end_date=moment(this.end_date).format('DD/MM/YYYY');
                                                 //    console.log(response.data);
                                             });
 
@@ -261,6 +271,11 @@ new Vue({
                             axios.get('http://127.0.0.1:5000/course').then(
                                 response=>{
                                     this.course=response.data.result;
+                                       for (var i = 0; i < this.course.length; i++) {
+                                           this.course[i].start_date=moment( this.course[i].start_date).format('DD/MM/YYYY');
+                                           this.course[i].end_date=moment( this.course[i].end_date).format('DD/MM/YYYY');
+                                       }
+
                              });
                         });    
                     this.editShowHide=!this.editShowHide;
